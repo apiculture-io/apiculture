@@ -1,0 +1,27 @@
+= apiculture
+
+* {Homepage}[https://rubygems.org/gems/apiculture]
+* {Documentation}[http://rubydoc.info/gems/apiculture/frames]
+* {Email}[mailto:hfwang at porkbuns.net]
+
+== Description
+
+TODO: Description
+
+== Features
+
+== Examples
+
+  require 'apiculture'
+
+== Requirements
+
+== Install
+
+  $ gem install apiculture
+
+== Copyright
+
+Copyright (c) 2014 Hsiu-Fan Wang
+
+See LICENSE.txt for details.
