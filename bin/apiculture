@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+
+begin
+  require 'apiculture'
+rescue LoadError => e
+  abort 'Could not load "apiculture"'
+end
+
+Apiculture::Cli.start

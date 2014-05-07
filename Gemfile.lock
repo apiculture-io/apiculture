@@ -4,6 +4,7 @@ PATH
     apiculture (0.1.0)
       protobuf (~> 3.0.0)
       protobuf_descriptor (~> 1.0.0)
+      thor (~> 0.19.1)
 
 GEM
   remote: https://rubygems.org/

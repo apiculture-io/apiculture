@@ -1,1 +1,5 @@
 require 'apiculture/version'
+require 'apiculture/config'
+require 'apiculture/cli'
+require 'apiculture/template'
+require 'apiculture/template_registry'

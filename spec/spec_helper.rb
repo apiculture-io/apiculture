@@ -1,4 +1,2 @@
 require 'rspec'
-require 'apiculture/version'
-
-include Apiculture
+require 'apiculture'

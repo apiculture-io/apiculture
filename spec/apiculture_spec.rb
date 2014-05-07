@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'apiculture'
 
 describe Apiculture do
   it "should have a VERSION constant" do
