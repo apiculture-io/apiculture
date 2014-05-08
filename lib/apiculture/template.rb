@@ -3,10 +3,20 @@ require 'uri'
 
 module Apiculture
   class Template
-    attr_accessor :path, :descriptor
+    attr_accessor :descriptor
 
     def name
       descriptor["name"]
+    end
+
+    def path
+      descriptor["path"]
+    end
+
+    def update!
+      Dir.chdir(path) do
+        system('git', 'pull')
+      end
     end
   end
 end

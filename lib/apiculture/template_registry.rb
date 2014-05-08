@@ -60,5 +60,9 @@ module Apiculture
         template
       }
     end
+
+    def find_by_name(name)
+      self.list.find { |template| template.name == name }
+    end
   end
 end
