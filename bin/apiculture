@@ -13,4 +13,4 @@ rescue LoadError => e
   abort 'Could not load "apiculture"'
 end
 
-Apiculture::Cli.start
+Apiculture::Cli::Main.start
