@@ -1,5 +1,9 @@
-require 'apiculture/version'
-require 'apiculture/config'
-require 'apiculture/cli'
-require 'apiculture/template'
-require 'apiculture/template_registry'
+require "apiculture/version"
+
+module Apiculture
+  autoload :Manifest, "apiculture/manifest"
+  autoload :Config, "apiculture/config"
+  autoload :Cli, "apiculture/cli"
+  autoload :Template, "apiculture/template"
+  autoload :TemplateRegistry, "apiculture/template_registry"
+end

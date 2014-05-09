@@ -14,36 +14,39 @@ module Apiculture
     end
 
     def write_registry!
+      FileUtils.mkdir_p(File.dirname(@path)) unless File.exists?(File.dirname(@path))
       File.open(path, "w+") do |f|
         f.write(registry.to_yaml)
       end
     end
 
-    def install(uri, options={})
+    def install(url, options={})
       options = { :force => false }.merge(options)
 
-      url = URI(uri)
+      url_hash = Digest::MD5.hexdigest(url)
 
-      name = File.basename(url.path)
-      name.gsub!(/\.git$/,'')
+      is_remote = /^(https?|git):\/\//.match(url) || url.end_with?(".git")
+      name = File.basename(url, ".git")
 
-      url_hash = Digest::MD5.hexdigest(uri)
       path = File.join(config.template_dir, url_hash)
+      path = File.realpath(url) if !is_remote
 
-      if File.directory?(path)
-        if options[:force]
-          FileUtils.rm_rf(path)
-        else
-          raise "Template #{name} already installed."
+      if is_remote
+        if File.directory?(path)
+          if options[:force]
+            FileUtils.rm_rf(path)
+          else
+            raise "Template #{name} already installed."
+          end
         end
+
+        FileUtils.mkdir_p(path)
+        system("git", "clone", url, path)
       end
 
-      FileUtils.mkdir_p(path)
-      system('git', 'clone', uri, path)
-
-      self.registry[name] = registry_entry = {
+      self.registry[url_hash] = registry_entry = {
         "name" => name,
-        "url" => uri,
+        "url" => url,
         "path" => path
       }
       self.write_registry!

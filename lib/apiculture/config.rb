@@ -20,7 +20,7 @@ module Apiculture
       end
 
       def options_file
-        @options_file || File.join(config_dir, "options.yml")
+        @options_file
       end
 
       def reset_options_file!
@@ -28,7 +28,7 @@ module Apiculture
       end
 
       def template_dir
-        @template_dir || File.join(config_dir, "templates")
+        @template_dir
       end
 
       def reset_template_dir!
@@ -37,16 +37,22 @@ module Apiculture
 
     end
 
+    def self.build
+      instance = self.new
+      yield instance if block_given?
+      instance
+    end
+
     def config_dir
       @config_dir || self.class.config_dir
     end
 
     def options_file
-      @options_file || self.class.options_file
+      @options_file || File.join(config_dir, "options.yml")
     end
 
     def template_dir
-      @template_dir || self.class.template_dir
+      @template_dir || File.join(config_dir, "templates")
     end
 
     def template_registry_file

@@ -13,6 +13,10 @@ module Apiculture
       descriptor["path"]
     end
 
+    def url
+      descriptor["url"]
+    end
+
     def update!
       Dir.chdir(path) do
         system('git', 'pull')

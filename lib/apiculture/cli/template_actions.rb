@@ -3,12 +3,8 @@ class Apiculture::Cli::TemplateActions < Apiculture::Cli::Base
 
   desc "list", "List all installed templates"
   def list
-    print_template = lambda { |template|
-      puts "\t#{template.name} - #{template.path}"
-    }
-
-    puts "Installed templates:"
-    template_registry.list.each(&print_template)
+    say "Installed templates:"
+    print_table template_registry.list.map { |template| [template.name, template.path, template.url] }
   end
 
   desc "install URI", "Install an Apiculture template"
