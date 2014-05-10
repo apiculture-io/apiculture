@@ -58,5 +58,9 @@ module Apiculture
     def template_registry_file
       File.join(self.template_dir, "templates.yml")
     end
+
+    def template_registry
+      @template_registry ||= ::Apiculture::TemplateRegistry.new(self)
+    end
   end
 end

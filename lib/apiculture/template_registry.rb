@@ -67,5 +67,9 @@ module Apiculture
     def find_by_name(name)
       self.list.find { |template| template.name == name }
     end
+
+    def find_by_url(url)
+      self.list.find { |template| template.url == url }
+    end
   end
 end
