@@ -1,0 +1,10 @@
+---
+name: apiculture
+descriptor_dir: .
+outputs:
+- template: "/Users/darkwulf/Code/apiculture-android-out/"
+  options:
+    package_name: io.apiculture.api
+- template: "/Users/darkwulf/Code/apiculture-ruby-out/"
+  options:
+    gem_name: ApicultureApi

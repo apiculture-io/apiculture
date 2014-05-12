@@ -1,0 +1,45 @@
+package WearaboutsApi.Conversation;
+
+option java_package = "us.wearabouts.chatabout.proto.conversation";
+
+import "wearabouts_pb.proto";
+import "apiculture_extensions.proto";
+
+message ListRequest {}
+message ListResponse {
+  repeated WearaboutsPb.ConversationProto conversations = 1;
+}
+
+message CreateRequest {
+  repeated string user_ids = 1;
+  repeated string emails = 2;
+  repeated string phones = 3;
+}
+message CreateResponse {
+  required WearaboutsPb.ConversationProto conversation = 1;
+}
+
+message GetRequest {
+  required string conversation_id = 1;
+}
+message GetResponse {
+  optional WearaboutsPb.ConversationProto conversation = 1;
+  repeated WearaboutsPb.PostProto posts = 2;
+}
+
+message PostRequest {
+  required string conversation_id = 1 [(my_field_option) = 4.5];
+  optional string text = 2;
+}
+message PostResponse {
+  optional WearaboutsPb.PostProto post = 1;
+}
+
+service ConversationService {
+  rpc List (ListRequest) returns (ListResponse) {
+    option (api_service).path = "conversation/list";
+  }
+  rpc Create (CreateRequest) returns (CreateResponse);
+  rpc Get (GetRequest) returns (GetResponse);
+  rpc Post (PostRequest) returns (PostResponse);
+}

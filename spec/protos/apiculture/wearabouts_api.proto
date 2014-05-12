@@ -1,0 +1,3 @@
+package WearaboutsApi;
+
+option java_package = "us.wearabouts.chatabout.proto";

@@ -1,0 +1,35 @@
+package WearaboutsExtras;
+
+option java_package = "us.wearabouts.chatabout.proto";
+
+import "wearabouts_pb.proto";
+
+message DeviceLinkExtras {
+  optional bool verified = 1 [default=true];
+}
+message UserExtras {
+  optional string name = 1;
+  optional bool phone_verified = 100 [default=true];
+  optional bool email_verified = 101 [default=true];
+}
+message UserDetail {
+  optional string phone = 1;
+  optional string email = 2;
+}
+message ConversationExtras {
+  repeated UserDetail member_details = 1;
+}
+message PostExtras {
+  enum Kind {
+    TEXT = 1;
+    AUDIO = 2;
+    IMAGE = 3;
+  }
+  required WearaboutsPb.PostProto.Kind kind = 1;
+  optional string text = 2;
+}
+message PostFileUpload {
+  optional string filename = 1;
+  optional string mime_type = 2;
+  optional string contents = 3;
+}
