@@ -41,7 +41,10 @@ class Apiculture::Cli::Main < Apiculture::Cli::Base
       destination = File.join(dest, output.template.name)
       empty_directory(destination)
       inside destination do
-        instance_exec(output.options, destination, &output.template.generate_proc)
+        @output = output
+        self.source_paths << output.template.path
+        instance_exec(output, destination, &output.template.generate_proc)
+        self.source_paths.delete(output.template.path)
       end
     end
   end
