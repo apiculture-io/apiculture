@@ -1,0 +1,22 @@
+import "google/protobuf/descriptor.proto";
+
+message ApicultureServiceOptions {
+  enum HttpMethod {
+    GET = 1;
+    POST = 2;
+    PUT = 3;
+    DELETE = 4;
+  }
+
+  optional string path = 1;
+  optional HttpMethod method = 2 [default=POST];
+  repeated string content_type = 3;
+}
+
+extend google.protobuf.MethodOptions {
+  optional ApicultureServiceOptions api_service = 50005;
+}
+
+extend google.protobuf.FieldOptions {
+  optional float my_field_option = 50002;
+}

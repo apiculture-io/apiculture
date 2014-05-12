@@ -13,7 +13,7 @@ class Apiculture::Manifest
   attr_accessor :path
 
   # The sub-directory containing the Apiculture api descriptor
-  attr_accessor :directory
+  attr_accessor :descriptor_dir
 
   # Array of Output instances
   attr_accessor :outputs
@@ -28,7 +28,7 @@ class Apiculture::Manifest
   def as_yaml
     return {
         "name" => self.name,
-        "directory" => self.directory,
+        "descriptor_dir" => self.descriptor_dir,
         "outputs" => self.outputs.map { |out| out.as_yaml }
       }
   end
@@ -43,11 +43,19 @@ class Apiculture::Manifest
     end
   end
 
+  def descriptor_path
+    return File.join(path, descriptor_dir)
+  end
+
+  def input
+    @input ||= Apiculture::Input.new(self)
+  end
+
   def self.load(config, path)
     yaml = YAML.load_file(File.join(path, BASE_NAME))
     return self.new(config, path) do |manifest|
       manifest.name = yaml["name"]
-      manifest.directory = yaml["directory"]
+      manifest.descriptor_dir = yaml["descriptor_dir"]
       manifest.outputs = (yaml["outputs"] || []).map { |y|
         Apiculture::Output.from_yaml(manifest, y)
       }

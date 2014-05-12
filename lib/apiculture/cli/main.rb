@@ -3,7 +3,7 @@ require "apiculture/cli"
 class Apiculture::Cli::Main < Apiculture::Cli::Base
   desc "init [PATH]", "Initializes an Apiculture API definition"
   def init(path=".")
-    if path != "." && (File.exists?(path) || File.directory?(path))
+    if path != "." && (File.exists?(path) && !File.directory?(path))
       say "Directory '#{path}' already exists!", :red
       exit(1)
     end
@@ -11,6 +11,7 @@ class Apiculture::Cli::Main < Apiculture::Cli::Base
     manifest = Apiculture::Manifest.new(config, File.expand_path(".")) do |m|
       m.name = ask("What is the name of the API?",
                    :default => File.basename(File.expand_path(".")))
+      m.descriptor_dir = path
     end
     create_file(Apiculture::Manifest::BASE_NAME) { manifest.to_yaml }
 
@@ -30,19 +31,30 @@ class Apiculture::Cli::Main < Apiculture::Cli::Base
     empty_directory(dest)
 
     old_root = destination_root
+
+    manifest.input.invoke_protoc("java", "out.zip")
+
     manifest.outputs.each do |output|
+      # Install the template if it doesn't exist.
+      template_registry.install(output.template_uri) if output.template.nil?
+
       destination = File.join(dest, output.template.name)
       empty_directory(destination)
-      self.destination_root = destination
-      instance_exec output.options, destination, &output.template.generate_proc
+      inside destination do
+        instance_exec(output.options, destination, &output.template.generate_proc)
+      end
     end
   end
 
   desc "configure [TEMPLATE_NAME]", "Configure a template (or all of them)"
   def configure(template=nil)
     manifest.outputs.each do |output|
+      # Install the template if it doesn't exist.
+      template_registry.install(output.template_uri) if output.template.nil?
+
       next if !template.nil? && output.template.name != template
 
+      say "Configuring #{output.template.name}:"
       instance_exec output.options, &output.template.configure_options_proc
     end
     manifest.write!
