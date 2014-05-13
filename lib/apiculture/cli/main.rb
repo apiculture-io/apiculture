@@ -32,7 +32,7 @@ class Apiculture::Cli::Main < Apiculture::Cli::Base
 
     old_root = destination_root
 
-    manifest.input.invoke_protoc("java", "out.zip")
+    @input = manifest.input
 
     manifest.outputs.each do |output|
       # Install the template if it doesn't exist.
