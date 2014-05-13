@@ -43,7 +43,7 @@ module Apiculture
 
     private
     def load_descriptor
-      file = Tempfile.new(["descriptor", "desc"])
+      file = Tempfile.new(["descriptor", ".desc"])
       begin
         invoke_protoc(:descriptor, file.path)
         return ProtobufDescriptor.load(file.path)
