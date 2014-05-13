@@ -74,6 +74,7 @@ class Apiculture::Cli::Main < Apiculture::Cli::Base
 
       say "Configuring #{output.template.name}:"
       instance_exec output.options, &output.template.configure_options_proc
+      say ""
     end
     manifest.write!
   end
