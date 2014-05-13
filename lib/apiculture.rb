@@ -8,6 +8,7 @@ module Apiculture
   autoload :Output, "apiculture/output"
   autoload :Template, "apiculture/template"
   autoload :TemplateRegistry, "apiculture/template_registry"
+  autoload :StringUtils, "apiculture/string_utils"
 
   def self.register_template
     yield ::Apiculture::Template.__loading_template
