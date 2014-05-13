@@ -35,3 +35,20 @@ rescue LoadError => e
   end
 end
 task :doc => :yard
+
+desc "Compiles the apiculture extension proto files for ruby"
+task :compile_apiculture_extension_protos do
+  Dir.chdir("protos") do
+    files = Dir["apiculture_extensions.proto"]
+    system(*([
+      "protoc",
+      "-I.",
+      "--ruby_out=../lib"
+    ] + files))
+  end
+  EXTENSION_FILE = "lib/apiculture_extensions.pb.rb"
+  IMPORT_BLOCK = "require 'google/protobuf/descriptor.pb'"
+  contents = File.read(EXTENSION_FILE)
+  contents.gsub!(IMPORT_BLOCK, "# #{IMPORT_BLOCK}")
+  File.open(EXTENSION_FILE, "w") { |f| f.write(contents) }
+end
