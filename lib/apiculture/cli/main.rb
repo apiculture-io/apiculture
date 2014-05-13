@@ -49,6 +49,21 @@ class Apiculture::Cli::Main < Apiculture::Cli::Base
     end
   end
 
+  desc "clean [DEST]", "Delete generated code"
+  def clean(dest="apiculture_gen")
+    if no?("Are you sure? (y/n)")
+      say "Aborting!", :red
+      exit(1)
+    end
+    manifest.outputs.each do |output|
+      # Install the template if it doesn't exist.
+      template_registry.install(output.template_uri) if output.template.nil?
+
+      destination = File.join(dest, output.template.name)
+      remove_file(destination)
+    end
+  end
+
   desc "configure [TEMPLATE_NAME]", "Configure a template (or all of them)"
   def configure(template=nil)
     manifest.outputs.each do |output|
