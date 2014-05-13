@@ -2,16 +2,25 @@ option java_package = "io.apiculture";
 
 import "apiculture_extensions.proto";
 
+// This is a pretty sweet comment.
 message AuthenticateRequest {
   optional string email = 1;
   optional string phone = 2;
   required string device_id = 3;
   optional string name = 4;
 }
+
+// This is a description of the response.
 message AuthenticateResponse {
   optional string auth_token = 3;
 }
 
+// This service is responsible for routing everything!
 service UserService {
-  rpc Authenticate (AuthenticateRequest) returns (AuthenticateResponse);
+  // Input?
+  // Output?
+  // We'll never know!
+  rpc Authenticate (AuthenticateRequest) returns (AuthenticateResponse) {
+    option (api_service).path = "user/authenticate";
+  }
 }
