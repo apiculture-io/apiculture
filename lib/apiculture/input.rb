@@ -11,7 +11,8 @@ module Apiculture
     end
 
     def proto_files
-      return Dir.glob("#{manifest.descriptor_path}/**/*.proto")
+      return Dir.glob(File.join(
+          manifest.descriptor_path, "**", "*.proto"))
     end
 
     def descriptor
@@ -23,7 +24,8 @@ module Apiculture
       # Load the file that the apiculture extensions are defined in.
       require "apiculture_extensions.pb.rb"
 
-      extension_import_path = File.realpath(File.join(File.dirname(__FILE__), "..", "..", "protos"))
+      extension_import_path = File.realpath(File.join(
+          File.dirname(__FILE__), "..", "..", "protos"))
 
       command = ["protoc", "-I.", "-I#{extension_import_path}"]
       if output_type == :descriptor
