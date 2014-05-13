@@ -1,1 +1,0 @@
-public class Manifest {}
