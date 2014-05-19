@@ -3,7 +3,7 @@ PATH
   specs:
     apiculture (0.1.0)
       protobuf (~> 3.0.0)
-      protobuf_descriptor (~> 1.0.0)
+      protobuf_descriptor (~> 1.1.2)
       pry (~> 0.9.12.6)
       thor (~> 0.19.1)
 
@@ -28,9 +28,8 @@ GEM
       middleware
       multi_json
       thor
-    protobuf_descriptor (1.0.0)
-      activesupport (>= 3.0.0)
-      protobuf (~> 3.0.0)
+    protobuf_descriptor (1.1.2)
+      protobuf (~> 3.0, >= 3.0.0)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
