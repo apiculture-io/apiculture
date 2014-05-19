@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ['lib']
 
   gem.add_dependency 'protobuf', '~> 3.0.0'
-  gem.add_dependency 'protobuf_descriptor', '~> 1.0.0'
+  gem.add_dependency 'protobuf_descriptor', '~> 1.1.2'
   gem.add_dependency 'thor', '~> 0.19.1'
   gem.add_dependency 'pry', '~> 0.9.12.6'
 

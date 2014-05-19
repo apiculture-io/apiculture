@@ -42,6 +42,7 @@ class Apiculture::Cli::Main < Apiculture::Cli::Base
       empty_directory(destination)
       inside destination do
         @output = output
+        @options = output.options
         self.source_paths << output.template.path
         instance_exec(output, destination, &output.template.generate_proc)
         self.source_paths.delete(output.template.path)

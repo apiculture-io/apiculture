@@ -9,6 +9,12 @@ class Apiculture::Manifest
   # The name of the API
   attr_accessor :name
 
+  # Short one line description of what the API does
+  attr_accessor :summary
+
+  # One paragraph description of what the API does
+  attr_accessor :description
+
   # The full path to the directory containing this manifest
   attr_accessor :path
 
@@ -28,6 +34,8 @@ class Apiculture::Manifest
   def as_yaml
     return {
         "name" => self.name,
+        "summary" => self.summary,
+        "description" => self.description,
         "descriptor_dir" => self.descriptor_dir,
         "outputs" => self.outputs.map { |out| out.as_yaml }
       }
@@ -55,6 +63,8 @@ class Apiculture::Manifest
     yaml = YAML.load_file(File.join(path, BASE_NAME))
     return self.new(config, path) do |manifest|
       manifest.name = yaml["name"]
+      manifest.summary = yaml["summary"]
+      manifest.description = yaml["description"]
       manifest.descriptor_dir = yaml["descriptor_dir"]
       manifest.outputs = (yaml["outputs"] || []).map { |y|
         Apiculture::Output.from_yaml(manifest, y)
